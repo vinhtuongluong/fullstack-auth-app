@@ -38,8 +38,12 @@ export class AuthController {
     this.mailerService.sendMail({
       to: 'vinhtuongluong@gmail.com',
       subject: 'Testing Nest Mailermodule with template ✔',
-      template: 'welcome', // The `.pug`, `.ejs` or `.hbs` extension is appended automatically.
-      html: '<b>Hello</b>',
+      text: 'welcome', // The `.pug`, `.ejs` or `.hbs` extension is appended automatically.
+      template: 'register',
+      context: {
+        name: 'LVT',
+        activationCode: 12345,
+      },
     });
 
     return 'ok';
