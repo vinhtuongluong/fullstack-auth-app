@@ -7,7 +7,8 @@ import { DownOutlined, SmileOutlined } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 import { Dropdown, Space } from 'antd'
 
-const AdminHeader = () => {
+const AdminHeader = (props: any) => {
+  const { session } = props
   const { Header } = Layout
   const { collapseMenu, setCollapseMenu } = useContext(AdminContext)!
 
@@ -89,7 +90,7 @@ const AdminHeader = () => {
             }}
           >
             <Space>
-              Welcome Admin
+              Welcome {session?.user?.name ?? ''}
               <DownOutlined />
             </Space>
           </a>

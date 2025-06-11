@@ -10,7 +10,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // You can specify which fields should be submitted, by adding keys to the `credentials` object.
       // e.g. domain, username, password, 2FA token, etc.
       credentials: {
-        email: {},
+        username: {},
         password: {},
       },
       authorize: async (credentials) => {
@@ -18,7 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           method: 'POST',
           url: 'http://localhost:8080/api/v1/auth/login',
           body: {
-            username: credentials.email,
+            username: credentials.username,
             password: credentials.password,
           },
         })
@@ -53,8 +53,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token
     },
     session({ session, token }) {
-      (session.user as IUser) = token.user
+      ;(session.user as IUser) = token.user
       return session
+    },
+    authorized: async ({ auth }) => {
+      // Logged in users are authenticated, otherwise redirect to login page
+      return !!auth
     },
   },
 })
